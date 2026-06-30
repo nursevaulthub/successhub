@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NurseVault™ — Ace Your CAT. Save Your Semester.</title>
+<meta name="description" content="High-quality Anatomy & Nursing revision resources designed to help nursing students study smarter and score higher.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<style>
+  :root{
+    --ink:#15152A;
+    --ink-soft:#5C5C72;
+    --paper:#FFFFFF;
+    --line:#ECEAF5;
+    --shadow: 0 24px 60px -28px rgba(21,21,42,0.30);
+    /* default (green / home) */
+    --accent:#0FBE73;
+    --accent-deep:#089256;
+    --accent-bg:#E2FBEE;
+    --accent-ink:#04361F;
+  }
+  body[data-theme="pink"]{
+    --accent:#FF3D9A;
+    --accent-deep:#DF1981;
+    --accent-bg:#FFE3F1;
+    --accent-ink:#5C0A33;
+  }
+  body[data-theme="orange"]{
+    --accent:#FF8A1E;
+    --accent-deep:#EE6A00;
+    --accent-bg:#FFEAD6;
+    --accent-ink:#5C2300;
+  }
+  body[data-theme="purple"]{
+    --accent:#9156F7;
+    --accent-deep:#7430E0;
+    --accent-bg:#F1E7FF;
+    --accent-ink:#2E1065;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);
+    -webkit-font-smoothing:antialiased;transition:background .4s ease;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;margin:0;}
+  p{margin:0;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  ::selection{background:var(--accent);color:white;}
+
+  @keyframes floaty{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-16px) rotate(var(--r,0deg));}}
+  @keyframes floatySlow{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+  @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.0), var(--shadow);}50%{box-shadow:0 0 0 14px rgba(255,255,255,0.08), var(--shadow);}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @keyframes barLoad{0%{width:6%;}50%{width:62%;}100%{width:100%;}}
+  @keyframes pop{0%{transform:scale(.92);opacity:0;}100%{transform:scale(1);opacity:1;}}
+
+  /* ---------- LOADER ---------- */
+  #loader{
+    position:fixed;inset:0;z-index:999;background:linear-gradient(135deg,#0FBE73,#089256);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+    transition:opacity .5s ease, visibility .5s ease;
+  }
+  #loader.hide{opacity:0;visibility:hidden;pointer-events:none;}
+  .loader-logo{font-family:'Fraunces',serif;font-weight:700;font-size:30px;color:white;letter-spacing:-0.01em;animation:pop .5s ease;}
+  .loader-logo .tm{font-size:13px;vertical-align:super;}
+  .loader-bar{width:180px;height:4px;background:rgba(255,255,255,0.25);border-radius:10px;overflow:hidden;}
+  .loader-bar span{display:block;height:100%;background:white;border-radius:10px;animation:barLoad 1s ease forwards;}
+  .loader-sub{color:rgba(255,255,255,0.85);font-size:12.5px;font-weight:600;letter-spacing:0.04em;}
+
+  /* ---------- NAV ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:15px 24px;max-width:1160px;margin:0 auto;}
+  .logo{font-family:'Fraunces',serif;font-weight:700;font-size:22px;display:flex;align-items:center;gap:8px;cursor:pointer;}
+  .logo .tm{font-size:11px;vertical-align:super;color:var(--accent-deep);}
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);display:inline-block;transition:background .3s ease;box-shadow:0 0 0 4px var(--accent-bg);}
+  nav.links{display:flex;gap:6px;font-size:14.5px;font-weight:600;color:var(--ink-soft);}
+  nav.links a{padding:9px 16px;border-radius:100px;transition:all .2s ease;cursor:pointer;}
+  nav.links a:hover{color:var(--ink);background:#F6F5FA;}
+  nav.links a.active{background:var(--accent-bg);color:var(--accent-ink);}
+  .nav-right{display:flex;align-items:center;gap:10px;}
+  .cart-btn{
+    position:relative;background:var(--accent-bg);border:none;color:var(--accent-ink);
+    padding:10px 18px;border-radius:100px;display:flex;align-items:center;gap:8px;cursor:pointer;
+    font-size:14px;font-weight:700;transition:all .2s ease;
+  }
+  .cart-btn:hover{background:var(--accent);color:white;}
+  .cart-count{
+    background:var(--accent-deep);color:white;font-size:11px;font-weight:800;width:19px;height:19px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cart-btn:hover .cart-count{background:white;color:var(--accent-deep);}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;border-radius:100px;font-weight:700;font-size:14.5px;cursor:pointer;border:none;transition:transform .15s ease, box-shadow .15s ease, background .2s ease;}
+  .btn:active{transform:scale(0.96);}
+  .btn-accent{background:var(--accent);color:white;}
+  .btn-accent:hover{background:var(--accent-deep);box-shadow:var(--shadow);transform:translateY(-2px);}
+  .btn-dark{background:var(--ink);color:white;}
+  .btn-dark:hover{box-shadow:var(--shadow);transform:translateY(-2px);}
+  .btn-outline{background:white;border:1.5px solid var(--ink);color:var(--ink);}
+  .btn-outline:hover{background:var(--ink);color:white;}
+  .btn-block{width:100%;}
+  .mobile-toggle{display:none;background:none;border:none;cursor:pointer;font-size:20px;}
+
+  /* ---------- TOP BANNER ---------- */
+  .topbanner{background:var(--accent);color:white;padding:11px 24px;text-align:center;font-size:13.5px;font-weight:700;transition:background .4s ease;}
+  .topbanner b{font-weight:800;}
+
+  /* ---------- PAGES ---------- */
+  .page{display:none;}
+  .page.active{display:block;animation:fadeUp .5s ease;}
+
+  /* ---------- HERO (home) ---------- */
+  .hero{position:relative;overflow:hidden;padding:72px 24px 60px;
+    background:radial-gradient(circle at 14% 18%, rgba(15,190,115,0.16), transparent 45%),
+      radial-gradient(circle at 86% 14%, rgba(255,138,30,0.10), transparent 42%),
+      radial-gradient(circle at 70% 90%, rgba(15,190,115,0.14), transparent 45%),
+      #FBFFFC;
+  }
+  .hero-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.05fr 0.95fr;gap:40px;align-items:center;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid var(--line);padding:8px 16px;border-radius:100px;font-size:13px;font-weight:700;color:var(--accent-deep);margin-bottom:24px;box-shadow:0 6px 18px -10px rgba(0,0,0,0.1);}
+  .hero h1{font-size:clamp(38px,5.4vw,60px);line-height:1.06;}
+  .hero h1 .accent{font-style:italic;color:var(--accent);}
+  .hero-sub{max-width:480px;margin:22px 0 0;color:var(--ink-soft);font-size:16.5px;line-height:1.65;}
+  .hero-ctas{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+  .hero-badges{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap;}
+  .pill-badge{background:white;border:1px solid var(--line);padding:8px 15px;border-radius:100px;font-size:12.5px;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:6px;}
+
+  /* device mockup */
+  .hero-visual{position:relative;height:430px;}
+  .browser-mock{
+    position:absolute;top:20px;left:0;width:88%;background:white;border-radius:18px;box-shadow:var(--shadow);
+    border:1px solid var(--line);overflow:hidden;animation:floaty 6s ease-in-out infinite;--r:-1.5deg;
+  }
+  .browser-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;border-bottom:1px solid var(--line);background:#FAFAFC;}
+  .browser-bar i{width:9px;height:9px;border-radius:50%;background:#E3E1ED;}
+  .browser-bar span{margin-left:8px;font-size:11px;color:var(--ink-soft);background:white;border:1px solid var(--line);border-radius:6px;padding:3px 10px;flex:1;}
+  .browser-body{padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .mini-card{border-radius:12px;padding:12px;color:white;font-size:11.5px;font-weight:700;}
+  .mini-card .t{font-size:10px;font-weight:800;opacity:0.85;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:18px;}
+  .mini-card .pr{margin-top:14px;display:flex;justify-content:space-between;align-items:center;}
+  .mini-card .pr button{background:rgba(255,255,255,0.9);color:var(--ink);border:none;border-radius:100px;font-size:10px;font-weight:800;padding:5px 10px;}
+  .mc-1{background:linear-gradient(135deg,#0FBE73,#089256);}
+  .mc-2{background:linear-gradient(135deg,#FF8A1E,#EE6A00);}
+  .mc-3{background:linear-gradient(135deg,#FF3D9A,#DF1981);}
+  .mc-4{background:linear-gradient(135deg,#9156F7,#7430E0);}
+  .phone-mock{
+    position:absolute;bottom:0;right:0;width:188px;background:white;border-radius:24px;box-shadow:var(--shadow);
+    border:1px solid var(--line);padding:16px 14px;animation:floaty 7s ease-in-out infinite 0.4s;--r:2deg;z-index:2;
+  }
+  .phone-mock .ok{width:34px;height:34px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;margin-bottom:10px;}
+  .phone-mock h4{font-size:13.5px;font-weight:800;}
+  .phone-mock .sub{font-size:10.5px;color:var(--ink-soft);margin-top:3px;}
+  .phone-mock .amt{font-size:18px;font-weight:800;margin-top:12px;font-family:'Fraunces',serif;}
+  .phone-mock .mp{font-size:10px;color:var(--ink-soft);margin-top:2px;}
+  .phone-mock .dl{margin-top:12px;background:var(--accent);color:white;text-align:center;font-size:11px;font-weight:800;padding:9px;border-radius:10px;}
+  .float-deco{position:absolute;width:56px;height:56px;border-radius:16px;background:white;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:24px;animation:floaty 5.5s ease-in-out infinite;}
+  .fd-1{top:-6px;left:10px;--r:-8deg;animation-delay:.2s;}
+  .fd-2{bottom:34px;left:-10px;--r:6deg;animation-delay:1s;background:var(--accent-bg);}
+
+  /* ---------- URGENCY ---------- */
+  .urgency{background:linear-gradient(135deg,var(--ink),#22223d);color:white;padding:58px 24px;position:relative;overflow:hidden;}
+  .urgency::before{content:"";position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(15,190,115,0.35),transparent 70%);}
+  .urgency-inner{max-width:760px;margin:0 auto;text-align:center;position:relative;}
+  .urgency .tag{display:inline-block;background:rgba(255,255,255,0.12);padding:7px 16px;border-radius:100px;font-size:12.5px;font-weight:700;margin-bottom:18px;color:#fff;}
+  .urgency h2{font-size:clamp(24px,3.6vw,34px);line-height:1.25;color:white;}
+  .urgency h2 .hl{color:var(--accent);font-style:italic;}
+  .urgency p{color:rgba(255,255,255,0.72);margin-top:14px;font-size:15.5px;line-height:1.65;}
+  .urgency .btn{margin-top:26px;animation:pulseGlow 2.4s ease-in-out infinite;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:80px 24px;}
+  .section-head{text-align:center;max-width:620px;margin:0 auto 48px;}
+  .section-tag{font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent-deep);}
+  .section-head h2{font-size:clamp(28px,4vw,42px);margin-top:10px;line-height:1.14;}
+  .section-head h2 .accent{font-style:italic;color:var(--accent);}
+  .section-head p{color:var(--ink-soft);margin-top:14px;font-size:16px;line-height:1.6;}
+
+  /* ---------- FILTER TABS ---------- */
+  .tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:38px;}
+  .tab{background:white;border:1px solid var(--line);padding:10px 18px;border-radius:100px;font-size:13.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;transition:all .2s ease;}
+  .tab.active{background:var(--accent);color:white;border-color:var(--accent);}
+  .tab:hover:not(.active){border-color:var(--accent);color:var(--accent-deep);}
+
+  /* ---------- PRODUCTS ---------- */
+  .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1160px;margin:0 auto;}
+  .pcard{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:white;display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .25s ease;position:relative;}
+  .pcard:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+  .pcard-cover{height:150px;position:relative;display:flex;align-items:flex-end;padding:16px;font-family:'Fraunces',serif;font-size:14.5px;font-weight:700;color:white;}
+  .pcard-tag{position:absolute;top:14px;left:14px;background:rgba(255,255,255,0.92);color:var(--ink);font-size:11px;font-weight:800;padding:5px 11px;border-radius:100px;}
+  .pcard-cat{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.28);color:white;font-size:10.5px;font-weight:800;padding:5px 11px;border-radius:100px;letter-spacing:0.03em;}
+  .badge{position:absolute;top:14px;left:14px;background:#FFD23F;color:#5C3D00;font-size:11px;font-weight:800;padding:5px 12px;border-radius:100px;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:2;}
+  .pcard-body{padding:22px;display:flex;flex-direction:column;gap:11px;flex:1;}
+  .pcard-body h3{font-size:17.5px;line-height:1.3;}
+  .pcard-body .desc{font-size:13.5px;color:var(--ink-soft);line-height:1.55;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:6px;}
+  .chip{background:var(--accent-bg);color:var(--accent-ink);font-size:11px;font-weight:700;padding:5px 11px;border-radius:100px;}
+  .pcard-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px;}
+  .price{font-family:'Fraunces',serif;font-size:21px;font-weight:700;}
+  .preview-link{display:block;font-size:12.5px;color:var(--accent-deep);font-weight:700;}
+  .add-btn{background:var(--ink);color:white;border:none;border-radius:100px;padding:10px 18px;font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s ease;}
+  .add-btn:hover{background:var(--accent-deep);}
+  .add-btn.added{background:var(--accent);}
+
+  /* ---------- BUNDLE (orange page) ---------- */
+  .bundle-hero{padding:60px 24px 0;text-align:center;}
+  .bundle-hero .tag{display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid var(--line);padding:8px 18px;border-radius:100px;font-size:13px;font-weight:800;color:var(--accent-deep);margin-bottom:24px;}
+  .bundle-hero h1{font-size:clamp(34px,5vw,54px);line-height:1.1;}
+  .bundle-hero h1 .accent{font-style:italic;color:var(--accent);}
+  .bundle-hero p{max-width:520px;margin:18px auto 0;color:var(--ink-soft);font-size:16px;line-height:1.6;}
+  .bundle-wrap{padding:50px 24px 100px;}
+  .bundle{max-width:900px;margin:0 auto;border-radius:30px;background:linear-gradient(135deg,#FFEAD6,#FFF6EC);border:1px solid var(--line);padding:52px;position:relative;overflow:hidden;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center;}
+  .bundle::before{content:"";position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,30,0.30),transparent 70%);}
+  .bundle-tag{font-size:13px;font-weight:800;color:var(--accent-deep);text-transform:uppercase;letter-spacing:0.06em;}
+  .bundle h2{font-size:30px;margin-top:8px;}
+  .bundle p.bundle-desc{margin-top:12px;color:var(--ink-soft);font-size:15px;line-height:1.6;}
+  .bundle-items{margin-top:18px;display:flex;flex-direction:column;gap:8px;}
+  .bundle-items span{font-size:13.5px;color:var(--ink-soft);display:flex;gap:8px;align-items:center;}
+  .bundle-items span::before{content:"✓";color:var(--accent-deep);font-weight:800;}
+  .bundle-card{background:white;border-radius:22px;padding:30px;text-align:center;box-shadow:var(--shadow);position:relative;z-index:1;animation:floatySlow 5s ease-in-out infinite;}
+  .bundle-card .old{font-size:14px;color:var(--ink-soft);text-decoration:line-through;}
+  .bundle-card .new{font-family:'Fraunces',serif;font-size:44px;font-weight:700;margin:6px 0;}
+  .bundle-card .save{display:inline-block;background:var(--accent-bg);color:var(--accent-ink);font-size:12.5px;font-weight:800;padding:6px 15px;border-radius:100px;margin-bottom:18px;}
+
+  /* ---------- TRUST ---------- */
+  .trust{background:#FAFAF9;padding:60px 24px;}
+  .trust-grid{max-width:1020px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;}
+  .trust-item .ico{font-size:30px;}
+  .trust-item p{font-size:14px;font-weight:700;margin-top:10px;color:var(--ink-soft);}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1160px;margin:0 auto;}
+  .testi-card{background:white;border:1px solid var(--line);border-radius:20px;padding:26px;}
+  .stars{color:#F0B94F;font-size:15px;letter-spacing:2px;}
+  .testi-card p{margin-top:14px;font-size:14.5px;color:var(--ink-soft);line-height:1.6;font-style:italic;}
+  .testi-name{margin-top:16px;font-size:13.5px;font-weight:800;}
+  .testi-role{font-size:12.5px;color:var(--ink-soft);}
+
+  /* ---------- FAQ ---------- */
+  .faq-wrap{max-width:760px;margin:0 auto;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{padding:22px 4px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:700;font-size:15.5px;}
+  .faq-q .plus{font-size:20px;color:var(--accent-deep);transition:transform .2s ease;font-weight:400;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-a p{padding:0 4px 22px;color:var(--ink-soft);font-size:14.5px;line-height:1.6;}
+
+  /* ---------- FINAL CTA ---------- */
+  .final-cta{background:var(--ink);color:white;padding:90px 24px;text-align:center;}
+  .final-cta h2{color:white;font-size:clamp(28px,4vw,42px);max-width:620px;margin:0 auto;line-height:1.2;}
+  .final-cta h2 .accent{font-style:italic;color:var(--accent);}
+  .final-cta p{color:rgba(255,255,255,0.65);margin-top:16px;font-size:16px;}
+  .final-cta .btn{margin-top:30px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#FAFAF9;padding:54px 24px 26px;border-top:1px solid var(--line);}
+  .foot-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:32px;}
+  .foot-logo{font-family:'Fraunces',serif;font-weight:700;font-size:20px;color:var(--accent-deep);}
+  .foot-tag{margin-top:10px;font-size:14px;color:var(--ink-soft);max-width:240px;line-height:1.5;}
+  .foot-col h4{font-size:13px;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:14px;}
+  .foot-col a{display:block;font-size:14px;color:var(--ink);margin-bottom:10px;cursor:pointer;}
+  .foot-col a:hover{color:var(--accent-deep);}
+  .foot-bottom{max-width:1160px;margin:36px auto 0;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;gap:10px;}
+
+  /* ---------- CART PAGE ---------- */
+  .cart-hero{padding:60px 24px 0;text-align:center;}
+  .cart-hero h1{font-size:clamp(32px,5vw,50px);}
+  .cart-hero h1 .accent{font-style:italic;color:var(--accent);}
+  .cart-hero p{color:var(--ink-soft);margin-top:12px;font-size:15.5px;}
+  .cart-wrap{max-width:760px;margin:0 auto;padding:40px 24px 100px;}
+  .cart-box{background:white;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:50px 40px;}
+  .cart-empty-state{text-align:center;padding:30px 0;}
+  .cart-empty-state .ico{font-size:62px;margin-bottom:18px;}
+  .cart-empty-state h3{font-size:24px;}
+  .cart-empty-state p{color:var(--ink-soft);margin-top:10px;font-size:14.5px;}
+  .cart-empty-state .btn{margin-top:26px;}
+  .cart-item{display:flex;gap:14px;align-items:flex-start;border-bottom:1px solid var(--line);padding:16px 0;}
+  .cart-item-info{flex:1;}
+  .cart-item-info h4{font-size:15px;font-weight:700;line-height:1.3;}
+  .cart-item-info .p{font-size:13px;color:var(--ink-soft);margin-top:4px;}
+  .cart-item-remove{background:none;border:none;color:#D9476B;font-size:12.5px;cursor:pointer;margin-top:6px;font-weight:700;padding:0;}
+  .cart-foot{margin-top:14px;padding-top:22px;border-top:1px solid var(--line);}
+  .cart-total-row{display:flex;justify-content:space-between;font-weight:800;font-size:19px;margin-bottom:8px;}
+  .cart-save{font-size:12.5px;color:var(--accent-deep);font-weight:700;margin-bottom:18px;}
+  .cart-secure{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;font-size:12.5px;color:var(--ink-soft);font-weight:600;}
+
+  /* checkout modal */
+  .modal-overlay{position:fixed;inset:0;background:rgba(21,21,42,0.55);z-index:110;display:none;align-items:center;justify-content:center;padding:20px;}
+  .modal-overlay.show{display:flex;}
+  .modal{background:white;border-radius:24px;max-width:440px;width:100%;padding:34px;max-height:90vh;overflow-y:auto;animation:pop .25s ease;}
+  .modal h3{font-size:21px;}
+  .modal .sub{font-size:13.5px;color:var(--ink-soft);margin-top:6px;}
+  .field{margin-top:18px;}
+  .field label{font-size:13px;font-weight:700;display:block;margin-bottom:6px;}
+  .field input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:14.5px;font-family:inherit;background:#FAFAFC;}
+  .field input:focus{outline:none;border-color:var(--accent);}
+  .modal-note{margin-top:18px;font-size:12.5px;color:var(--ink-soft);background:#FAFAFC;padding:12px 14px;border-radius:12px;line-height:1.5;}
+  .modal .btn{width:100%;margin-top:22px;}
+  .modal-close{float:right;background:none;border:none;font-size:20px;cursor:pointer;color:var(--ink-soft);}
+
+  /* ---------- Thank you page ---------- */
+  .ty-wrap{max-width:560px;margin:0 auto;text-align:center;padding:130px 24px 100px;}
+  .ty-check{width:78px;height:78px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 26px;animation:pop .4s ease;}
+  .ty-wrap h2{font-size:30px;}
+  .ty-wrap p{color:var(--ink-soft);margin-top:14px;font-size:15.5px;line-height:1.6;}
+  .ty-downloads{margin-top:32px;display:flex;flex-direction:column;gap:12px;text-align:left;}
+  .ty-dl-item{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:14px;padding:14px 18px;}
+  .ty-dl-item span{font-size:14px;font-weight:700;}
+  .ty-dl-item a{background:var(--accent);color:white;font-size:13px;font-weight:700;padding:8px 16px;border-radius:100px;}
+
+  /* floating buy now */
+  .float-buy{position:fixed;bottom:22px;right:22px;z-index:60;background:var(--ink);color:white;padding:14px 22px;border-radius:100px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;box-shadow:0 14px 34px -10px rgba(21,21,42,0.45);cursor:pointer;border:none;animation:floatySlow 4s ease-in-out infinite;}
+  .float-buy:hover{background:var(--accent-deep);}
+
+  @media(max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{height:340px;margin-top:20px;}
+  }
+  @media(max-width:880px){
+    .products-grid{grid-template-columns:1fr;}
+    .testi-grid{grid-template-columns:1fr;}
+    .trust-grid{grid-template-columns:repeat(2,1fr);}
+    .bundle{grid-template-columns:1fr;padding:36px 28px;}
+    .foot-grid{grid-template-columns:1fr;}
+    nav.links{display:none;}
+    .mobile-toggle{display:block;}
+    .cart-box{padding:34px 22px;}
+  }
+</style>
+</head>
+<body data-theme="green">
+
+<!-- ============ LOADER ============ -->
+<div id="loader">
+  <div class="loader-logo">NurseVault<span class="tm">™</span></div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">Loading your study vault…</div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="nav">
+    <div class="logo" onclick="goPage('home')"><span class="dot"></span>NurseVault<span class="tm">™</span></div>
+    <nav class="links" id="navLinks">
+      <a onclick="goPage('home')" data-nav="home">Home</a>
+      <a onclick="goPage('resources')" data-nav="resources">Resources</a>
+      <a onclick="goPage('bundles')" data-nav="bundles">Bundles</a>
+      <a onclick="goPage('faq')" data-nav="faq">FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <button class="cart-btn" onclick="goPage('cart')" aria-label="Open cart">
+        🛒 Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ TOP BANNER ============ -->
+<div class="topbanner" id="topBanner">🎓 2026 CAT Season — Notes KSh 120 · Questions KSh 99 · One click to your edge</div>
+
+<!-- ============ HOME PAGE ============ -->
+<section class="page active" data-page="home">
+
+  <div class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">📚 Made by nursing students, for nursing students</div>
+        <h1>Study <span class="accent">Smarter.</span><br>Score <span class="accent">Higher.</span></h1>
+        <p class="hero-sub">Real notes. Real questions. Built from your actual lecture content — not random internet stuff. Get what you need to walk into your CAT ready.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-dark" onclick="goPage('resources')">Browse Resources →</button>
+          <button class="btn btn-outline" onclick="goPage('bundles')">🎯 See Bundles</button>
+        </div>
+        <div class="hero-badges">
+          <span class="pill-badge">✅ Free to browse</span>
+          <span class="pill-badge">📲 M-Pesa payment</span>
+          <span class="pill-badge">⚡ Instant download</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="float-deco fd-1">🩺</div>
+        <div class="float-deco fd-2">💊</div>
+        <div class="browser-mock">
+          <div class="browser-bar"><i></i><i></i><i></i><span>nursevault.co.ke</span></div>
+          <div class="browser-body">
+            <div class="mini-card mc-1"><div class="t">📝 Notes</div>Cranial Nerves, Eye & Ear<div class="pr">KSh 120<button>Add</button></div></div>
+            <div class="mini-card mc-2"><div class="t">❓ Questions</div>Predicted CAT Paper<div class="pr">KSh 99<button>Add</button></div></div>
+            <div class="mini-card mc-3"><div class="t">📝 Notes</div>Integumentary System<div class="pr">KSh 120<button>Add</button></div></div>
+            <div class="mini-card mc-4"><div class="t">🎯 Bundle</div>Complete Bundle<div class="pr">KSh 299<button>Add</button></div></div>
+          </div>
+        </div>
+        <div class="phone-mock">
+          <div class="ok">✓</div>
+          <h4>Order Confirmed</h4>
+          <div class="sub">Order #NV0091</div>
+          <div class="amt">KSh 120</div>
+          <div class="mp">M-Pesa · 0712 *** ***</div>
+          <div class="dl">⚡ Download Ready</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- URGENCY -->
+  <section class="urgency">
+    <div class="urgency-inner">
+      <div class="tag">⏰ CAT season is here</div>
+      <h2>Your next CAT could <span class="hl">save — or cost — your semester.</span></h2>
+      <p>Thousands of students lose marks revising the wrong content or starting too late. You're one click away from notes and questions built around what's actually tested.</p>
+      <button class="btn btn-accent" onclick="goPage('resources')">Get Your Edge Now →</button>
+    </div>
+  </section>
+
+  <!-- PRODUCTS PREVIEW -->
+  <section class="section" id="products">
+    <div class="section-head">
+      <div class="section-tag">Study Resources</div>
+      <h2>Built around what's <span class="accent">actually tested</span></h2>
+      <p>Every set pairs concise notes with exam-style questions and full rationales — so you practice the way you'll be examined.</p>
+    </div>
+    <div class="products-grid" id="homeProductsGrid"></div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust">
+    <div class="trust-grid">
+      <div class="trust-item"><div class="ico">🔒</div><p>Secure Payment</p></div>
+      <div class="trust-item"><div class="ico">📩</div><p>Instant Email Delivery</p></div>
+      <div class="trust-item"><div class="ico">📱</div><p>M-Pesa Accepted</p></div>
+      <div class="trust-item"><div class="ico">📚</div><p>Nursing Student Created</p></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-tag">From students</div>
+      <h2>Trusted by students walking into the same CAT you are</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card"><div class="stars">★★★★★</div><p>"The questions were almost identical in style to our CAT. Highly recommend."</p><div class="testi-name">Wanjiru K.</div><div class="testi-role">BSN Year 1</div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p>"Saved me so much time the night before — the rationales actually explained the why, not just the answer."</p><div class="testi-name">Daniel O.</div><div class="testi-role">BSN Year 2</div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p>"Bought the bundle and it covered almost everything that came up. Worth every shilling."</p><div class="testi-name">Faith M.</div><div class="testi-role">BSN Year 1</div></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>Don't let an unprepared CAT <span class="accent">cost you the semester.</span></h2>
+    <p>You're one click away. Get the resources, walk in ready.</p>
+    <button class="btn btn-accent" onclick="goPage('resources')">Shop Resources Now</button>
+  </section>
+
+</section>
+
+<!-- ============ RESOURCES PAGE ============ -->
+<section class="page" data-page="resources">
+  <div class="section" style="padding-bottom:0;">
+    <div class="section-head">
+      <div class="section-tag">All Resources</div>
+      <h2>Notes & Questions <span class="accent">for Every Unit</span></h2>
+      <p>Buy what you need, download immediately.</p>
+    </div>
+    <div class="tabs" id="resourceTabs">
+      <div class="tab active" data-filter="all" onclick="filterResources('all',this)">All</div>
+      <div class="tab" data-filter="notes" onclick="filterResources('notes',this)">📝 Notes</div>
+      <div class="tab" data-filter="questions" onclick="filterResources('questions',this)">❓ Questions</div>
+    </div>
+    <div class="products-grid" id="resourcesGrid"></div>
+  </div>
+
+  <section class="trust" style="margin-top:80px;">
+    <div class="trust-grid">
+      <div class="trust-item"><div class="ico">🔒</div><p>Secure Payment</p></div>
+      <div class="trust-item"><div class="ico">📩</div><p>Instant Email Delivery</p></div>
+      <div class="trust-item"><div class="ico">📱</div><p>M-Pesa Accepted</p></div>
+      <div class="trust-item"><div class="ico">📚</div><p>Nursing Student Created</p></div>
+    </div>
+  </section>
+</section>
+
+<!-- ============ BUNDLES PAGE ============ -->
+<section class="page" data-page="bundles">
+  <div class="bundle-hero">
+    <div class="tag">🎯 Best Value</div>
+    <h1>One Price. <span class="accent">Everything.</span></h1>
+    <p>For students who don't want to leave anything to chance. All units. Notes and questions. One payment.</p>
+  </div>
+  <div class="bundle-wrap">
+    <div class="bundle">
+      <div>
+        <div class="bundle-tag">Limited bundle offer</div>
+        <h2>Study Smarter & Save More</h2>
+        <p class="bundle-desc">Get every resource in one bundle — built for students who want full coverage without piecing together separate purchases.</p>
+        <div class="bundle-items">
+          <span>Cranial Nerves, The Eye & The Ear</span>
+          <span>The Integumentary System</span>
+          <span>Exclusive Predicted CAT Paper</span>
+        </div>
+      </div>
+      <div class="bundle-card">
+        <div class="old">KSh 339</div>
+        <div class="new">KSh 299</div>
+        <div class="save">🎉 Save KSh 40 automatically</div>
+        <button class="btn btn-accent btn-block" onclick="addBundleToCart()">Buy Complete Bundle</button>
+      </div>
+    </div>
+  </div>
+  <section class="urgency" style="margin-top:-20px;">
+    <div class="urgency-inner">
+      <div class="tag">⚡ One click away</div>
+      <h2>Stop piecing together notes from <span class="hl">five different group chats.</span></h2>
+      <p>The bundle covers every unit in one download. Pay once, study smarter for the whole semester.</p>
+      <button class="btn btn-accent" onclick="addBundleToCart()">Get the Bundle →</button>
+    </div>
+  </section>
+</section>
+
+<!-- ============ FAQ PAGE ============ -->
+<section class="page" data-page="faq">
+  <div class="section">
+    <div class="section-head">
+      <div class="section-tag">FAQs</div>
+      <h2>Good to <span class="accent">know</span></h2>
+    </div>
+    <div class="faq-wrap">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How do I receive my notes?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Right after payment is confirmed, your download links appear on the Thank You page and are also sent to the email you provide at checkout.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Can I pay using M-Pesa?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Yes. Checkout is powered by Paystack, which supports M-Pesa STK Push as well as card payments.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How long does delivery take?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Delivery is instant — your download links unlock the moment payment is confirmed, no waiting required.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Can I buy one resource only?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Yes, every resource is sold individually. The bundle is simply there if you'd like all three at a lower combined price.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Is payment secure?<span class="plus">+</span></div>
+        <div class="faq-a"><p>All payments are processed securely through Paystack — NurseVault never sees or stores your card or M-Pesa details.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CART PAGE ============ -->
+<section class="page" data-page="cart">
+  <div class="cart-hero">
+    <h1>Your <span class="accent">Cart</span></h1>
+    <p>Review your items then proceed to checkout</p>
+  </div>
+  <div class="cart-wrap">
+    <div class="cart-box" id="cartBox"></div>
+  </div>
+</section>
+
+<!-- ============ THANK YOU PAGE ============ -->
+<section class="page" data-page="thankyou">
+  <div class="ty-wrap">
+    <div class="ty-check">✓</div>
+    <h2>Payment received — you're in!</h2>
+    <p>Thank you, <span id="tyName">friend</span>. Your receipt and download links have been sent to <span id="tyEmail">your email</span>. You can also download directly below.</p>
+    <div class="ty-downloads" id="tyDownloads"></div>
+    <p style="margin-top:32px;"><a href="#" onclick="goPage('home');return false;" style="font-weight:700;color:var(--accent-deep);">← Back to store</a></p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-logo">NurseVault™</div>
+      <p class="foot-tag">Helping nursing students pass one CAT at a time.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Shop</h4>
+      <a onclick="goPage('resources')">Resources</a>
+      <a onclick="goPage('bundles')">Bundles</a>
+    </div>
+    <div class="foot-col">
+      <h4>Info</h4>
+      <a onclick="goPage('faq')">FAQ</a>
+      <a>Terms</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 NurseVault™. All rights reserved.</span>
+    <span>🔒 Secured by Paystack</span>
+  </div>
+</footer>
+
+<!-- ============ FLOATING BUY NOW ============ -->
+<button class="float-buy" onclick="goPage('cart')">🛒 Buy Now</button>
+
+<!-- ============ CHECKOUT MODAL ============ -->
+<div class="modal-overlay" id="checkoutOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeCheckout()">✕</button>
+    <h3>Checkout</h3>
+    <p class="sub">Total due: <strong id="modalTotal">KSh 0</strong></p>
+    <div class="field"><label for="ckName">Full Name</label><input type="text" id="ckName" placeholder="Jane Wanjiku"></div>
+    <div class="field"><label for="ckPhone">Phone Number</label><input type="tel" id="ckPhone" placeholder="07XX XXX XXX"></div>
+    <div class="field"><label for="ckEmail">Email Address</label><input type="email" id="ckEmail" placeholder="jane@email.com"></div>
+    <div class="modal-note">Your email will receive your receipt and secure download links after successful payment.</div>
+    <button class="btn btn-accent btn-block" onclick="payNow()">Pay with Paystack</button>
+  </div>
+</div>
+
+<script>
+/* ===================== PRODUCT DATA ===================== */
+const PRODUCTS = {
+  p1: { name: "Cranial Nerves, The Eye & The Ear", price: 120, file: "https://drive.google.com/file/d/10fWm1g9qwCnR1NfGpU7AbOsirJlgGDyS/view", type:"notes", cover:"cover-1", desc:"Notes + Deep-Dive Question Paper", includes:["50 Multiple Choice Questions","10 Short Answer Questions","Detailed Explanations"], chips:["Anatomy II","50 MCQs"], tag:"📝 Review Notes" },
+  p2: { name: "The Integumentary System", price: 120, file: "https://drive.google.com/file/d/1a2lWG-boJyCZwsWzYJ3_m8mukv1aEqIh/view", type:"notes", cover:"cover-2", desc:"Anatomy II — NCLEX & CAT Edition", includes:["50 MCQs","10 Short Answer Questions","Full Rationales","Model Responses"], chips:["Anatomy II","Skin Layers"], tag:"📝 Review Notes" },
+  p3: { name: "Exclusive Predicted CAT Paper", price: 99, file: "https://drive.google.com/file/d/1KAGyfwQ3ABF5T1geipA4rs9PhxvktABp/view", type:"questions", cover:"cover-3", desc:"High-probability predicted CAT questions designed to simulate the real examination.", includes:["Predicted high-yield questions","Simulates real CAT format"], chips:["🔥 Best Value","Predicted Paper"], tag:"❓ Question Bank", badge:"🔥 Best Value" },
+  bundle: { name: "Complete Bundle (3 resources)", price: 299, file: null, isBundle: true }
+};
+const PAYSTACK_PUBLIC_KEY = "pk_live_ce4bbdd09a1882d0eeb1aa99666f2e3503c0bf10";
+let cart = {};
+let resourceFilter = 'all';
+
+const THEMES = { home:'green', resources:'pink', bundles:'orange', faq:'green', cart:'purple', thankyou:'purple' };
+const BANNERS = {
+  home: '🎓 2026 CAT Season — Notes KSh 120 · Questions KSh 99 · One click to your edge',
+  resources: '🌸 Notes KSh 120 · Questions KSh 99 · Instant download after payment',
+  bundles: '🎯 Best value — get everything you need for one price. Instant download.',
+  faq: '💬 Got questions? We\'ve got answers below.',
+  cart: '💜 Your order is safe — M-Pesa secured via Paystack · Instant download',
+  thankyou: '✅ Payment confirmed — your downloads are ready below.'
+};
+
+/* ===================== PAGE NAV ===================== */
+function goPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`.page[data-page="${name}"]`).classList.add('active');
+  document.body.setAttribute('data-theme', THEMES[name] || 'green');
+  document.getElementById('topBanner').textContent = BANNERS[name] || '';
+  document.querySelectorAll('nav.links a').forEach(a=>a.classList.toggle('active', a.dataset.nav===name));
+  if(name==='cart') renderCartPage();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ===================== RENDER PRODUCT CARDS ===================== */
+function productCardHTML(id){
+  const p = PRODUCTS[id];
+  return `<div class="pcard" data-type="${p.type}">
+    ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+    <div class="pcard-cover ${p.cover}"><span></span></div>
+    <div class="pcard-body">
+      <h3>${p.name}</h3>
+      <p class="desc">${p.desc}</p>
+      <ul class="pcard-includes" style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;">
+        ${p.includes.map(i=>`<li style="font-size:13px;color:var(--ink-soft);display:flex;gap:7px;"><span style="color:var(--accent-deep);font-weight:700;">✓</span>${i}</li>`).join('')}
+      </ul>
+      <a class="preview-link" href="${p.file}" target="_blank" rel="noopener">Preview sample →</a>
+      <div class="pcard-foot">
+        <span class="price">KSh ${p.price}</span>
+        <button class="add-btn" onclick="addToCart('${id}', this)">Add to Cart</button>
+      </div>
+    </div>
+  </div>`;
+}
+function renderProductGrids(){
+  const ids = ['p1','p2','p3'];
+  document.getElementById('homeProductsGrid').innerHTML = ids.map(productCardHTML).join('');
+  renderResourcesGrid();
+}
+function renderResourcesGrid(){
+  const ids = ['p1','p2','p3'].filter(id => resourceFilter==='all' || PRODUCTS[id].type===resourceFilter);
+  document.getElementById('resourcesGrid').innerHTML = ids.map(productCardHTML).join('');
+}
+function filterResources(type, el){
+  resourceFilter = type;
+  document.querySelectorAll('#resourceTabs .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderResourcesGrid();
+}
+
+/* ===================== CART LOGIC ===================== */
+function addToCart(id, btnEl){
+  if(id === 'bundle'){
+    cart = { bundle: 1 };
+  } else {
+    if(cart.bundle) delete cart.bundle;
+    cart[id] = (cart[id] || 0) + 1;
+  }
+  updateCartCount();
+  if(btnEl){
+    const original = btnEl.textContent;
+    btnEl.textContent = "Added ✓";
+    btnEl.classList.add('added');
+    setTimeout(()=>{ btnEl.textContent = original; btnEl.classList.remove('added'); }, 1100);
+  }
+}
+function addBundleToCart(){ addToCart('bundle', null); goPage('cart'); }
+function removeFromCart(id){ delete cart[id]; updateCartCount(); renderCartPage(); }
+function cartTotal(){ let total=0; for(const id in cart){ total += PRODUCTS[id].price * cart[id]; } return total; }
+function updateCartCount(){
+  document.getElementById('cartCount').textContent = Object.values(cart).reduce((a,b)=>a+b,0);
+}
+
+function renderCartPage(){
+  const box = document.getElementById('cartBox');
+  const ids = Object.keys(cart);
+  if(ids.length === 0){
+    box.innerHTML = `<div class="cart-empty-state">
+      <div class="ico">🛒</div>
+      <h3>Your cart is empty</h3>
+      <p>Browse resources and add what you need.</p>
+      <button class="btn btn-accent" onclick="goPage('resources')">Browse Resources →</button>
+    </div>`;
+    return;
+  }
+  let html = ids.map(id=>{
+    const p = PRODUCTS[id];
+    return `<div class="cart-item">
+      <div class="cart-item-info">
+        <h4>${p.name}</h4>
+        <div class="p">KSh ${p.price} × ${cart[id]}</div>
+        <button class="cart-item-remove" onclick="removeFromCart('${id}')">Remove</button>
+      </div>
+    </div>`;
+  }).join('');
+  html += `<div class="cart-foot">
+    <div class="cart-total-row"><span>Total</span><span>KSh ${cartTotal()}</span></div>
+    ${cart.bundle ? '<div class="cart-save">🎉 Bundle discount applied — you saved KSh 40</div>' : ''}
+    <button class="btn btn-dark btn-block" onclick="openCheckout()">Checkout</button>
+    <div class="cart-secure">🔒 Secured by Paystack · M-Pesa & Card accepted</div>
+  </div>`;
+  box.innerHTML = html;
+}
+
+/* ===================== FAQ ===================== */
+function toggleFaq(headEl){
+  const item = headEl.parentElement;
+  const answer = item.querySelector('.faq-a');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => {
+    el.classList.remove('open');
+    el.querySelector('.faq-a').style.maxHeight = null;
+  });
+  if(!isOpen){
+    item.classList.add('open');
+    answer.style.maxHeight = answer.scrollHeight + "px";
+  }
+}
+
+/* ===================== CHECKOUT ===================== */
+function openCheckout(){
+  if(Object.keys(cart).length === 0) return;
+  document.getElementById('modalTotal').textContent = `KSh ${cartTotal()}`;
+  document.getElementById('checkoutOverlay').classList.add('show');
+}
+function closeCheckout(){ document.getElementById('checkoutOverlay').classList.remove('show'); }
+
+function payNow(){
+  const name = document.getElementById('ckName').value.trim();
+  const phone = document.getElementById('ckPhone').value.trim();
+  const email = document.getElementById('ckEmail').value.trim();
+  if(!name || !phone || !email){ alert("Please fill in your name, phone number, and email to continue."); return; }
+  if(!/^\S+@\S+\.\S+$/.test(email)){ alert("Please enter a valid email address."); return; }
+
+  const amount = cartTotal() * 100;
+  const purchasedIds = Object.keys(cart);
+
+  const handler = PaystackPop.setup({
+    key: PAYSTACK_PUBLIC_KEY,
+    email: email,
+    amount: amount,
+    currency: "KES",
+    ref: 'NV-' + Date.now() + '-' + Math.floor(Math.random()*100000),
+    metadata: { custom_fields: [
+      { display_name: "Full Name", variable_name: "full_name", value: name },
+      { display_name: "Phone Number", variable_name: "phone_number", value: phone }
+    ]},
+    channels: ["mobile_money", "card"],
+    callback: function(response){
+      closeCheckout();
+      showThankYou(name, email, purchasedIds, response.reference);
+      cart = {};
+      updateCartCount();
+    },
+    onClose: function(){}
+  });
+  handler.openIframe();
+}
+
+/* ===================== THANK YOU PAGE ===================== */
+function showThankYou(name, email, purchasedIds, ref){
+  goPage('thankyou');
+  document.getElementById('tyName').textContent = name;
+  document.getElementById('tyEmail').textContent = email;
+  const dlEl = document.getElementById('tyDownloads');
+  dlEl.innerHTML = purchasedIds.map(id => {
+    if(id === 'bundle'){
+      return ['p1','p2','p3'].map(pid => {
+        const p = PRODUCTS[pid];
+        return `<div class="ty-dl-item"><span>${p.name}</span><a href="${p.file}" target="_blank" rel="noopener">Download</a></div>`;
+      }).join('');
+    }
+    const p = PRODUCTS[id];
+    return `<div class="ty-dl-item"><span>${p.name}</span><a href="${p.file}" target="_blank" rel="noopener">Download</a></div>`;
+  }).join('') + `<p style="margin-top:10px;font-size:12px;color:var(--ink-soft);">Reference: ${ref}</p>`;
+}
+
+/* ===================== INIT ===================== */
+renderProductGrids();
+updateCartCount();
+
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{ document.getElementById('loader').classList.add('hide'); }, 750);
+});
+</script>
+</body>
+</html>
